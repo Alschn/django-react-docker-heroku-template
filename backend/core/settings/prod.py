@@ -35,6 +35,7 @@ STATIC_URL = "/static/"
 
 WHITENOISE_ROOT = os.path.join(ROOT_DIR, "frontend", "build", "root")
 
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
 db_from_env = dj_database_url.config(
     default=DATABASE_URL, conn_max_age=500, ssl_require=True
