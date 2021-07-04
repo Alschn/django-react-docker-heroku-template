@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile.prod
 run:
-  web: gunicorn backend.core.wsgi
+  web: gunicorn --chdir backend core.wsgi

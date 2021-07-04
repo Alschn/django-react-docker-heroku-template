@@ -2,4 +2,4 @@
 python3 backend/manage.py makemigrations --no-input
 python3 backend/manage.py migrate --no-input
 
-gunicorn backend.core.wsgi
+gunicorn --chdir backend core.wsgi
