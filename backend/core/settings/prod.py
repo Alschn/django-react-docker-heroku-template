@@ -3,6 +3,8 @@ import os
 import dj_database_url
 from core.settings.base import *
 
+ROOT_DIR = BASE_DIR.parent.parent
+
 SECRET_KEY = os.environ.get("SECRET_KEY", "")  # set SECRET_KEY for production
 
 ALLOWED_HOSTS = [os.environ.get("PRODUCTION_HOST")]  # add heroku app url or create env var with url
@@ -21,19 +23,18 @@ STATIC_ROOT: directory to which Django will move those static assets and from wh
 WHITENOISE_ROOT: directory where WhiteNoise can find all non-html static assets
 '''
 
-TEMPLATES[0]["DIRS"] = [os.path.join(BASE_DIR, "../", "frontend", "build")]
+TEMPLATES[0]["DIRS"] = [os.path.join(ROOT_DIR, "frontend", "build")]
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "../", "frontend", "build", "static")]
+STATICFILES_DIRS = [os.path.join(ROOT_DIR, "frontend", "build", "static")]
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = os.path.join(ROOT_DIR, "staticfiles")
 
 STATIC_URL = "/static/"
 
-WHITENOISE_ROOT = os.path.join(BASE_DIR, "../", "frontend", "build", "root")
+WHITENOISE_ROOT = os.path.join(ROOT_DIR, "frontend", "build", "root")
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
 
 db_from_env = dj_database_url.config(
     default=DATABASE_URL, conn_max_age=500, ssl_require=True
