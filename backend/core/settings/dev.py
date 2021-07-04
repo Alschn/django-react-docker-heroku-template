@@ -1,8 +1,9 @@
+"""
+Configuration for development with Docker.
+"""
 import os
-from core.settings.base import *
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
+from core.settings.base import *
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'development')
@@ -17,7 +18,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'HOST': 'db',   # set in docker-compose.yml
-        'PORT': 5432    # default postgres port
+        'HOST': 'db',
+        'PORT': 5432
     }
 }

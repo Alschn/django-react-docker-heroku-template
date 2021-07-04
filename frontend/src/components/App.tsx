@@ -8,8 +8,8 @@ function App() {
   const [output, setOutput] = useState<string>("");
 
   const handleSubmit = () => {
-    axios.get(`/api/uppercase_text?text=${textInput}`).then(res => {
-      setOutput(res.data.uppercase_text);
+    axios.get(`/api/test?text=${textInput}`).then(res => {
+      setOutput(res.data.text);
     }).catch(err => console.log(err));
   }
 
@@ -31,9 +31,12 @@ function App() {
 
         <div>
           <label htmlFor='char-input'>Make this text uppercase: </label>
-          <input id='char-input' type='text' value={textInput} onChange={(e) => setTextInput(e.target.value)}/>
+          <input
+            id='char-input' type='text' value={textInput}
+            onChange={(e) => setTextInput(e.target.value)}
+          />
           <button onClick={handleSubmit}>Submit</button>
-          <h3 id='uppercase-text'>{output}</h3>
+          <h3>{output}</h3>
         </div>
       </header>
     </div>

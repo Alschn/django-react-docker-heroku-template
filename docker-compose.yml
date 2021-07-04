@@ -18,7 +18,6 @@ services:
     build: ./frontend
     volumes:
       - ./frontend:/app
-      # One-way volume to use node_modules from inside image
       - /app/node_modules
     ports:
       - "3000:3000"

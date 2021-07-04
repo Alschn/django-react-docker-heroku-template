@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import uppercase_text
+from .views import SimpleAPIView
 
 urlpatterns = [
-    path('uppercase_text', uppercase_text, name='uppercase_text'),
+    path('test', SimpleAPIView.as_view(), name='test_api_view'),
 ]
