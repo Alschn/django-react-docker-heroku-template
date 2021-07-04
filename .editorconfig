@@ -1,0 +1,31 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+
+# 4 space indentation
+[*.py]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+# Tab indentation (no size specified)
+[Makefile]
+indent_style = tab
+
+# Indentation override for all JS, HTML, CSS
+[*.{js, jsx, ts, tsx, html, css, scss}]
+indent_style = space
+indent_size = 2
+tab_width = 2
+
+# Matches the exact files either package.json or .travis.yml
+[{package.json, .travis.yml, yarn.lock}]
+indent_style = space
+indent_size = 2

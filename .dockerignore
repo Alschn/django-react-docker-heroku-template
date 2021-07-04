@@ -1,0 +1,14 @@
+# JS stuff
+node_modules
+
+# Dev stuff
+.github
+.git
+.gitignore
+venv
+.venv
+README.md
+.vscode
+.idea
+
+db.sqlite3

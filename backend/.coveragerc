@@ -1,0 +1,9 @@
+[report]
+omit=
+    # virtual environment
+    ./venv/*
+    # static files
+    ./static/*
+    ./staticfiles/*
+    # python files
+    */migrations/*
