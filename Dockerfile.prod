@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.8
 
 # Install curl, node, & yarn
 RUN apt-get install -y curl \
@@ -28,7 +28,7 @@ RUN $HOME/.yarn/bin/yarn build
 # for whitenoise middleware
 WORKDIR /app/frontend/build
 
-RUN mkdir root && mv *.ico *.json root
+RUN mkdir root && mv *.ico *.json root && mv static root
 
 # Collect static files
 RUN mkdir /app/backend/staticfiles
