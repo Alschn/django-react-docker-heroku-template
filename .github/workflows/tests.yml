@@ -1,4 +1,4 @@
-name: Backend Tests
+name: Unit Tests
 
 on:
   push:
@@ -10,12 +10,9 @@ on:
     branches:
       - master
 
-defaults:
-  run:
-    working-directory: backend
 
 jobs:
-  test:
+  test-backend:
     runs-on: ubuntu-latest
 
     services:
@@ -40,10 +37,38 @@ jobs:
         run: sudo apt-get install libpq-dev
       - name: Install dependencies
         run: |
+          cd backend
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install psycopg2
       - name: Django tests
-        run: coverage run manage.py test
+        run: |
+          cd backend
+          coverage run manage.py test
       - name: Tests coverage
-        run: coverage report
+        run: |
+          cd backend
+          coverage report -m
+
+  test-frontend:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: [12]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+      - name: Run tests
+        run: |
+          cd frontend
+          npm test -- --coverage

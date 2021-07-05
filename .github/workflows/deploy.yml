@@ -2,7 +2,7 @@ name: Deploy to Heroku
 
 on:
   workflow_run:
-    workflows: ["Backend Tests", "Frontend Tests"]
+    workflows: ["Unit Tests"]
     branches: [master]
     types:
       - completed
@@ -20,3 +20,4 @@ jobs:
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
           stack: "container"
+          branch: "master"
