@@ -45,7 +45,7 @@ Suggested packages:
 ## Without Docker
 ### Backend
 Create a virtual environment from cmd (or do it in Pycharm manually)
-```
+```shell script
 cd backend
 
 py -3 -m venv venv
@@ -58,31 +58,31 @@ pip install -r requirements.txt
 ```
 
 Run django application from cmd (or add new Django configuration if using Pycharm)
-```
+```shell script
 python manage.py runserver
 ```
 
 Preparing (if there are any changes to db schema) and running migrations
-```
+```shell script
 python manage.py makemigrations
 
 python manage.py migrate
 ```
 
 Create superuser
-```
+```shell script
 python manage.py createsuper user
 ```
 
 ### Frontend
 Install node dependencies.
-```
+```shell script
 cd frontend
 
 npm i
 ```
 Run development server in second terminal
-```
+```shell script
 npm start
 ```
 
@@ -104,20 +104,25 @@ Make sure Docker Engine is running.
 
 While in **root directory**, build docker images and run them with docker-compose. This might take up to few minutes.
 
-```
+```shell script
 docker-compose up --build
 ```
 
 Application should be up and running at `127.0.0.1` (by default)  
 
 If images had been installed and **no changes have been made**, just run to start containers:
-```
+```shell script
 docker-compose up
 ```
 
 Bringing down containers with **optional** -v flag removes **all** attached volumes and invalidates caches.
-```
+```shell script
 docker-compose down
+```
+
+To run commands in active container:
+```shell script
+docker exec -it CONTAINER_ID bash
 ```
 
 
@@ -135,9 +140,3 @@ docker-compose down
    7) Deploy your app by running: `git push heroku master` or manually in Heroku Dashboard. 
    There you can set up automatic deploys and awaiting CI.
    8) Go to `<your app name>.herokuapp.com` to see the published website.  
-
-
-## Todo:
-- Backend needs to wait for postgres, 
-otherwise it is not able to run migrations (dev setup with Docker)
-- Check if Github Actions CI passes
