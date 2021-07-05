@@ -131,12 +131,26 @@ docker exec -it CONTAINER_ID bash
    2) [Download/Install/Setup Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)  
     - After install, log into Heroku CLI: `heroku login`  
    3) Run: `heroku create <your app name>` to create the Heroku application    
+   4) Add git remote ```heroku git:remote -a <your app name>```
    4) Set your environment variables for your production environment by running:  
     ```
     heroku config:set PRODUCTION_HOST=<your app name>.herokuapp.com SECRET_KEY=<your secret key> DJANGO_SETTINGS_MODULE=core.settings.prod
     ```  
    5) Run: `heroku stack:set container` so Heroku knows this is a containerized application  
    6) Run: `heroku addons:create heroku-postgresql:hobby-dev` which creates the postgres add-on for Heroku 
-   7) Deploy your app by running: `git push heroku master` or manually in Heroku Dashboard. 
-   There you can set up automatic deploys and awaiting CI.
+   7) Deploy your app by running: `git push heroku master`,  
+   *or* by pushing to your github repository,  
+   *or* manually in Heroku dashboard  
    8) Go to `<your app name>.herokuapp.com` to see the published website.  
+
+
+## CI/CD
+This repository uses Github Actions to run test and deploy pipelines.
+`backend.yml` - runs django unit tests with postgres container  
+`frontend.yml` - runs react unit tests
+`deploy.yml` - automatic deploy to Heroku after the workflows above have passed.
+Delete this file or adjust branches on which it runs, if you don't want automatic deploy.
+
+If you want to use Automatic Deploy to Heroku:
+1) Set HEROKU_API_KEY, HEROKU_EMAIL, HEROKU_APP_NAME secrets in repository settings
+2) Push to master (or branch of your choice)
