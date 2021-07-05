@@ -1,5 +1,6 @@
-# Django + React + Postgres + Heroku template
-<div align="center" style="padding-bottom: 10px">
+
+<div align="center" style="padding-bottom: 20px">
+    <h1>Django + React + Postgres + Heroku template</h1>
     <img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt=""/>
@@ -13,12 +14,13 @@
 This repository serves as a starting point for developing a 
 production-ready application using Django Rest Framework, 
 React with Typescript and Postgres in a Dockerized environment 
-with an option to deploy to Heroku. 
+with an option to deploy to Heroku. Running development setup
+without docker-compose is also possible.
 
 ### Tools, libraries, frameworks:
 This setup has been tested with Python 3.8/3.9 and Node 12.
 
-#### Backend
+### Backend
 - Django + Django Rest Framework
 - `django-cors-headers` - handling cross origin requests
 - `coverage` - for code coverage reports and running unit tests
@@ -31,7 +33,7 @@ Suggested packages:
 - `drf-yasg` - open api documentation (swagger and redoc) 
 - `django-rest-auth`, `django-allauth` - making auth easier
 
-#### Frontend
+### Frontend
 - React
 - Typescript
 - `node-sass` - enables scss/sass support
@@ -131,7 +133,6 @@ docker exec -it CONTAINER_ID bash
    2) [Download/Install/Setup Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)  
     - After install, log into Heroku CLI: `heroku login`  
    3) Run: `heroku create <your app name>` to create the Heroku application    
-   4) Add git remote ```heroku git:remote -a <your app name>```
    4) Set your environment variables for your production environment by running:  
     ```
     heroku config:set PRODUCTION_HOST=<your app name>.herokuapp.com SECRET_KEY=<your secret key> DJANGO_SETTINGS_MODULE=core.settings.prod
@@ -143,14 +144,14 @@ docker exec -it CONTAINER_ID bash
    *or* manually in Heroku dashboard  
    8) Go to `<your app name>.herokuapp.com` to see the published website.  
 
+If you are having issues with heroku repository, try ```heroku git:remote -a <your app name>```.
 
-## CI/CD
-This repository uses Github Actions to run test and deploy pipelines.
-`backend.yml` - runs django unit tests with postgres container  
-`frontend.yml` - runs react unit tests
-`deploy.yml` - automatic deploy to Heroku after the workflows above have passed.
-Delete this file or adjust branches on which it runs, if you don't want automatic deploy.
+## CI
+This repository uses Github Actions to run test pipeline.  
+`tests.yml` - runs backend and frontend tests separately
 
-If you want to use Automatic Deploy to Heroku:
-1) Set HEROKU_API_KEY, HEROKU_EMAIL, HEROKU_APP_NAME secrets in repository settings
-2) Push to master (or branch of your choice)
+I was no able to configure automatic deploys with Github Actions.
+This was the [error](https://github.com/AkhileshNS/heroku-deploy/issues/84).
+
+If you want to enable Automatic Deploys, use Heroku dashboard and enable waiting
+for CI there.
