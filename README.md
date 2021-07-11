@@ -32,6 +32,7 @@ This setup has been tested with Python 3.8/3.9 and Node 12.
 Suggested packages: 
 - `drf-yasg` - open api documentation (swagger and redoc) 
 - `django-rest-auth`, `django-allauth` - making auth easier
+- `pip-chill` - works like pip freeze but does not output dependencies
 
 ### Frontend
 - React
@@ -103,6 +104,11 @@ coverage report -m
 
 ## With Docker
 Make sure Docker Engine is running.  
+
+**IMPORTANT:** You need to change CLRF to LF in entrypoint-dev.sh and entrypoint-prod.sh,
+otherwise build will fail because Linux uses different line endings than Windows.
+You can do this e.g using Pycharm, choosing LF in Line Separator at the bottom bar.
+Other files are not affected by this issue.
 
 While in **root directory**, build docker images and run them with docker-compose. This might take up to few minutes.
 
