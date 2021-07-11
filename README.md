@@ -105,7 +105,7 @@ coverage report -m
 ## With Docker
 Make sure Docker Engine is running.  
 
-**IMPORTANT:** You need to change CLRF to LF in entrypoint-dev.sh and entrypoint-prod.sh,
+**IMPORTANT:** You need to change CRLF to LF in entrypoint-dev.sh and entrypoint-prod.sh,
 otherwise build will fail because Linux uses different line endings than Windows.
 You can do this e.g using Pycharm, choosing LF in Line Separator at the bottom bar.
 Other files are not affected by this issue.
