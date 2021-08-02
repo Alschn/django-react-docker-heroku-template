@@ -1,6 +1,6 @@
 
 <div align="center" style="padding-bottom: 20px">
-    <h1>Django + React + Postgres + Heroku template</h1>
+    <h1>Django + React + Postgres + Docker + Heroku template</h1>
     <img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt=""/>
@@ -31,17 +31,18 @@ This setup has been tested with Python 3.8/3.9 and Node 12.
 
 Suggested packages: 
 - `drf-yasg` - open api documentation (swagger and redoc) 
-- `django-rest-auth`, `django-allauth` - making auth easier
+- `django-rest-auth`, `django-allauth`, `djoser` - making auth easier
 - `pip-chill` - works like pip freeze but does not output dependencies
 
 ### Frontend
 - React
 - Typescript
+- `react-router-dom` - frontend routing
 - `node-sass` - enables scss/sass support
 - `axios` - for making requests
 
 Suggested packages: 
-- `@material-ui/core`, `@material-ui/lab`, `@material-ui/icons` - UI library
+- UI libraries such as `Material-UI`, `Reactstrap`, `Chakra-UI`, `TailwindCSS` etc. 
 
 # Development setup
 
@@ -103,20 +104,23 @@ coverage report -m
 ```
 
 ## With Docker
-Make sure Docker Engine is running.  
-
-**IMPORTANT:** You need to change CRLF to LF in entrypoint-dev.sh and entrypoint-prod.sh,
+**IMPORTANT:** You need to change CRLF to LF in entrypoint-dev.sh, entrypoint-prod.sh and entrypoint-build.sh,
 otherwise build will fail because Linux uses different line endings than Windows.
 You can do this e.g using Pycharm, choosing LF in Line Separator at the bottom bar.
 Other files are not affected by this issue.
 
-While in **root directory**, build docker images and run them with docker-compose. This might take up to few minutes.
+**Make sure Docker Engine is running.**  
+
+### 1) Development configuration
+While in **root directory**, build docker images and run them with docker-compose. 
+This might take up to few minutes. 
+Rebuilding image is crucial after installing new packages via pip or npm.
 
 ```shell script
 docker-compose up --build
 ```
 
-Application should be up and running at `127.0.0.1` (by default)  
+Application should be up and running: backend `127.0.0.1:8000`, frontend `127.0.0.1:3000`. 
 
 If images had been installed and **no changes have been made**, just run to start containers:
 ```shell script
@@ -133,6 +137,22 @@ To run commands in active container:
 docker exec -it CONTAINER_ID bash
 ```
 
+### 2) Build configuration
+**In build configuration changes made locally are not reflected in running application. It is a simulation of the production environment.**  
+
+The only difference when running containers is that you have to use **docker-compose-build.yml** file.
+To achieve that use -f flag with filename: `-f docker-compose-build.yml`.
+
+For example to run and build containers you need to use this command:
+```shell script
+docker-compose -f docker-compose-build.yml up --build
+```
+
+Application should be up and running at `127.0.0.1:8000`. 
+Now there is nothing at `127.0.0.1:3000` because static files have already been built. 
+
+By default postgres service is shared between dev and build setups.
+If you want to have a separate db, edit docker-compose-build.yml and set up new volume by yourself.
 
 # Production Deployment  
    1) [Create Heroku Account](https://signup.heroku.com/dc)  
@@ -156,7 +176,7 @@ If you are having issues with heroku repository, try ```heroku git:remote -a <yo
 This repository uses Github Actions to run test pipeline.  
 `tests.yml` - runs backend and frontend tests separately
 
-I was no able to configure automatic deploys with Github Actions.
+I was not able to configure automatic deploys with Github Actions.
 This was the [error](https://github.com/AkhileshNS/heroku-deploy/issues/84).
 
 If you want to enable Automatic Deploys, use Heroku dashboard and enable waiting

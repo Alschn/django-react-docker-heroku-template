@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  backend-build:
+    build:
+      dockerfile: Dockerfile.build
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings.build
+
+  db:
+    image: postgres:12.0-alpine
+    restart: always
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
