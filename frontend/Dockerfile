@@ -1,5 +1,5 @@
 # Use an official node runtime as a parent image
-FROM node:12.18.3-alpine3.9
+FROM node:14.17.5-alpine
 
 WORKDIR /app/
 

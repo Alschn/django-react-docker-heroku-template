@@ -1,10 +1,5 @@
-FROM python:3.8
-
-# Install curl, node, & yarn
-RUN apt-get install -y curl \
-    && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-    && apt-get install -y nodejs \
-    && curl -o- -L https://yarnpkg.com/install.sh | bash
+# Use image with both python and node installed
+FROM nikolaik/python-nodejs:python3.9-nodejs14-alpine
 
 WORKDIR /app/backend
 
@@ -16,14 +11,14 @@ RUN pip3 install --upgrade pip -r requirements.txt
 WORKDIR /app/frontend
 
 COPY ./frontend/package.json ./frontend/yarn.lock /app/frontend/
-RUN $HOME/.yarn/bin/yarn install
+RUN npm install
 
 # Add the rest of the code
 COPY . /app/
 COPY ./backend/scripts/ /app/
 
 # Build static files
-RUN $HOME/.yarn/bin/yarn build
+RUN npm run build
 
 # Move all static files other than index.html to root/ for whitenoise middleware
 WORKDIR /app/frontend/build

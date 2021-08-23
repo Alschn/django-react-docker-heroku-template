@@ -3,6 +3,7 @@ version: "3.7"
 services:
   backend-build:
     build:
+      context: .
       dockerfile: Dockerfile.build
     volumes:
       - ./backend:/app/backend

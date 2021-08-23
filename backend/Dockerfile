@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM python:3.8-alpine
+FROM python:3.9.6-alpine
 
 # Adding backend directory to make absolute filepaths consistent across services
 WORKDIR /app/backend

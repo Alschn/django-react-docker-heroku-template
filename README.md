@@ -18,7 +18,7 @@ with an option to deploy to Heroku. Running development setup
 without docker-compose is also possible.
 
 ### Tools, libraries, frameworks:
-This setup has been tested with Python 3.8/3.9 and Node 12.
+This setup has been tested with Python 3.9 and Node 14. (previously Python 3.8, Node 12)
 
 ### Backend
 - Django + Django Rest Framework
@@ -43,6 +43,9 @@ Suggested packages:
 
 Suggested packages: 
 - UI libraries such as `Material-UI`, `Reactstrap`, `Chakra-UI`, `TailwindCSS` etc. 
+
+**IMPORTANT:** Be careful when bumping Node.js or node-sass package. 
+Node-sass is only compatible with specific node versions, check [here](https://www.npmjs.com/package/node-sass).
 
 # Development setup
 
@@ -143,9 +146,11 @@ docker exec -it CONTAINER_ID bash
 The only difference when running containers is that you have to use **docker-compose-build.yml** file.
 To achieve that use -f flag with filename: `-f docker-compose-build.yml`.
 
-For example to run and build containers you need to use this command:
+For example:
 ```shell script
 docker-compose -f docker-compose-build.yml up --build
+
+docker-compose -f docker-compose-build.yml down
 ```
 
 Application should be up and running at `127.0.0.1:8000`. 

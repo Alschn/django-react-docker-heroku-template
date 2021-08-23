@@ -1,5 +1,5 @@
 # Use image with both python and node installed
-FROM nikolaik/python-nodejs:python3.8-nodejs12-alpine
+FROM nikolaik/python-nodejs:python3.9-nodejs14-alpine
 
 WORKDIR /app/backend
 
