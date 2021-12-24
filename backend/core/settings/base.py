@@ -130,7 +130,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Authentication
+# Django REST Framework config
+# https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         ('rest_framework.permissions.AllowAny',)
@@ -145,9 +146,12 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATIC_URL = '/static/'
 
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS headers
+# https://pypi.org/project/django-cors-headers/
 CORS_ALLOW_ALL_ORIGINS = True
 
 # required by django.contrib.sites

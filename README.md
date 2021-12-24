@@ -21,7 +21,7 @@ without docker-compose is also possible.
 This setup has been tested with Python 3.9 and Node 14. (previously Python 3.8, Node 12)
 
 ### Backend
-- Django + Django Rest Framework
+- Django + Django Rest Framework `django` `djangorestframework`
 - `django-cors-headers` - handling cross origin requests
 - `coverage` - for code coverage reports and running unit tests
 - `mypy` + `djangorestframework-stubs` - for better typing experience
@@ -32,20 +32,23 @@ This setup has been tested with Python 3.9 and Node 14. (previously Python 3.8, 
 Suggested packages: 
 - `drf-yasg` - open api documentation (swagger and redoc) 
 - `django-rest-auth`, `django-allauth`, `djoser` - making auth easier
+- `django-filter` - enables filtering querysets with url parameters and more
 - `pip-chill` - works like pip freeze but does not output dependencies
+- `pipenv` - replacement for venv, works similarly to package.json
 
 ### Frontend
-- React
-- Typescript
+- React `react`
+- Typescript `typescript`
 - `react-router-dom` - frontend routing
-- `node-sass` - enables scss/sass support
+- `sass` - enables scss/sass support
 - `axios` - for making requests
 
 Suggested packages: 
-- UI libraries such as `Material-UI`, `Reactstrap`, `Chakra-UI`, `TailwindCSS` etc. 
-
-**IMPORTANT:** Be careful when bumping Node.js or node-sass package. 
-Node-sass is only compatible with specific node versions, check [here](https://www.npmjs.com/package/node-sass).
+- UI libraries such as `Chakra-UI`, `Material-UI`, `Reactstrap`, `TailwindCSS` etc. (personally I recommend Chakra-UI)
+- `formik` + `yup` - handling form state and validation
+- `@reduxjs/toolkit` + required packages 
+(react-redux, redux etc.) - library which makes Redux much easier to understand and use
+- `cypress` - for e2e testing
 
 # Development setup
 
@@ -112,6 +115,13 @@ otherwise build will fail because Linux uses different line endings than Windows
 You can do this e.g using Pycharm, choosing LF in Line Separator at the bottom bar.
 Other files are not affected by this issue.
 
+Create `.env` file in projects root directory with variables (use your own values):
+```
+DB_NAME=postgres
+DB_USER=postgres
+DB_PASSWORD=postgres
+```
+
 **Make sure Docker Engine is running.**  
 
 ### 1) Development configuration
@@ -137,7 +147,13 @@ docker-compose down
 
 To run commands in active container:
 ```shell script
-docker exec -it CONTAINER_ID bash
+docker exec -it <CONTAINER_ID/CONTAINER_NAME> <command>
+```
+e.g
+```shell script
+docker exec -it backend python manage.py createsuperuser
+docker exec -it backend coverage run manage.py test
+docker exec -it frontend /bin/sh
 ```
 
 ### 2) Build configuration
@@ -176,6 +192,16 @@ If you want to have a separate db, edit docker-compose-build.yml and set up new 
    8) Go to `<your app name>.herokuapp.com` to see the published website.  
 
 If you are having issues with heroku repository, try ```heroku git:remote -a <your app name>```.
+
+### Run commands in Heroku:
+```shell
+heroku run bash --app <your_app_name>
+```
+e.g
+```shell
+heroku run bash --app django-react-heroku-test
+~ $ python backend/manage.py createsuperuser 
+```
 
 ## CI
 This repository uses Github Actions to run test pipeline.  

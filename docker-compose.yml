@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
   backend:
+    container_name: backend
     build: ./backend
     volumes:
       - ./backend:/app/backend
@@ -15,6 +16,7 @@ services:
       - DJANGO_SETTINGS_MODULE=core.settings.dev
 
   frontend:
+    container_name: frontend
     build: ./frontend
     volumes:
       - ./frontend:/app
@@ -29,7 +31,16 @@ services:
     command: npm start
 
   db:
-    image: postgres:12.0-alpine
-    restart: always
+    container_name: db
+    image: postgres:14.0-alpine
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres-data:
