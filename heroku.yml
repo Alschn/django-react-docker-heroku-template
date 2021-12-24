@@ -1,3 +1,16 @@
+# https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
+
 build:
   docker:
     web: Dockerfile.prod
+
+release:
+  command:
+    - chmod +x ./entrypoint-prod.sh && ./entrypoint-prod.sh
+  image: web
+
+run:
+  web:
+    command:
+      - cd backend && gunicorn core.wsgi:application
+    image: web
