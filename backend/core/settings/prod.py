@@ -10,7 +10,7 @@ from core.settings.base import *
 ROOT_DIR = BASE_DIR.parent.parent
 
 # set SECRET_KEY for production
-SECRET_KEY = os.environ.get("SECRET_KEY", "")
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # add heroku app url or create env var with url
 ALLOWED_HOSTS = [os.environ.get("PRODUCTION_HOST")]
@@ -32,9 +32,10 @@ TEMPLATES[0]["DIRS"] = [os.path.join(ROOT_DIR, "frontend", "build")]
 # directory where Django can find html, js, css, and other static assets
 STATICFILES_DIRS = [os.path.join(ROOT_DIR, "frontend", "build", "static")]
 
-# directory to which Django will move those static assets and from which it will serve them when the app is running
+# type of static files storage
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
+# directory to which Django will move those static assets and from which it will serve them when the app is running
 STATIC_ROOT = os.path.join(ROOT_DIR, "staticfiles")
 
 STATIC_URL = "/static/"
