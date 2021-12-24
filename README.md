@@ -193,6 +193,16 @@ If you want to have a separate db, edit docker-compose-build.yml and set up new 
 
 If you are having issues with heroku repository, try ```heroku git:remote -a <your app name>```.
 
+### Run commands in Heroku:
+```shell
+heroku run bash --app <your_app_name>
+```
+e.g
+```shell
+heroku run bash --app django-react-heroku-test
+~ $ python backend/manage.py createsuperuser 
+```
+
 ## CI
 This repository uses Github Actions to run test pipeline.  
 `tests.yml` - runs backend and frontend tests separately
