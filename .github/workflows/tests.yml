@@ -2,13 +2,11 @@ name: Unit Tests
 
 on:
   push:
-    branches:
-      - dev
-      - master
 
   pull_request:
     branches:
       - master
+      - main
 
 
 jobs:
@@ -17,7 +15,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:12.0
+        image: postgres:14.0
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -29,10 +27,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.8
+      - name: Set up Python 3.9
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
       - name: psycopg2 prerequisites
         run: sudo apt-get install libpq-dev
       - name: Install dependencies
@@ -55,7 +53,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [12]
+        node: [14]
 
     steps:
       - name: Checkout
