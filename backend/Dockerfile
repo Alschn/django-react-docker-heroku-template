@@ -1,31 +1,30 @@
 # Use an official Python runtime as a parent image - Build stage
-FROM python:3.9.6-alpine as build-image
+FROM python:3.10.5-alpine as build-image
 
-# Setup venv in build image
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
+ENV PYTHONUNBUFFERED=1
+ENV PIPENV_VENV_IN_PROJECT=1
 
 WORKDIR /app/backend
 
-COPY requirements.txt .
+COPY Pipfile .
 
 # Install packages only needed in build stage
 RUN  \
     apk update && \
     apk upgrade && \
     apk add --virtual .build-deps gcc musl-dev postgresql-libs postgresql-dev && \
-    pip3 install --upgrade pip -r requirements.txt && \
+    pip3 install pipenv && \
+    pipenv install --dev --deploy --python 3.10 && \
     apk --purge del .build-deps
 
 # Use an official Python runtime as a parent image - Run stage
-FROM python:3.9.6-alpine as runtime
+FROM python:3.10.5-alpine as runtime
 
 ENV PYTHONUNBUFFERED=1
 
 # Copy venv from build stage
-COPY --from=build-image /opt/venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+COPY --from=build-image /app/backend/.venv /.venv
+ENV PATH="/.venv/bin:$PATH"
 
 # Install packages that are only needed runtime
 RUN  \
