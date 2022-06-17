@@ -1,23 +1,29 @@
-# Use an official node runtime as a parent image
-FROM node:14.17.5-alpine
+# Use an official node runtime as a parent image - Build stage
+FROM node:14.17.5-alpine as build-image
 
-WORKDIR /app/
+WORKDIR /app/frontend
 
-# Install dependencies
-COPY package.json yarn.lock /app/
+COPY package.json .
 
 # install dependencies and avoid `node-gyp rebuild` errors
-RUN apk add --no-cache --virtual .gyp \
-        python \
-        make \
-        g++ \
-    && npm install \
-    && apk del .gyp
+RUN \
+    apk add --virtual .gyp python make g++ && \
+    yarn install && \
+    apk del .gyp
 
+# Use an official node runtime as a parent image - Runtime
+FROM node:14.17.5-alpine as runtime
 
-# Add rest of the client code
-COPY . /app/
+WORKDIR /app/frontend
+
+# copy node_modules from build stage
+COPY --from=build-image /app/frontend/node_modules /app/frontend/node_modules
+
+# copy rest of source code
+COPY . .
+
+RUN apk add bash && yarn install --check-files
 
 EXPOSE 3000
 
-CMD npm start
+CMD ["yarn", "start"]

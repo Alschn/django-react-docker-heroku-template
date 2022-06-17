@@ -19,8 +19,8 @@ services:
     container_name: frontend
     build: ./frontend
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - ./frontend:/app/frontend
+      - node-modules:/app/frontend/node_modules
     ports:
       - "3000:3000"
     environment:
@@ -28,7 +28,6 @@ services:
       - CHOKIDAR_USEPOLLING=true
     depends_on:
       - backend
-    command: npm start
 
   db:
     container_name: db
@@ -44,3 +43,4 @@ services:
 
 volumes:
   postgres-data:
+  node-modules:
