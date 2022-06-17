@@ -13,6 +13,8 @@ python-dotenv = "*"
 psycopg2 = "*"
 django-cors-headers = "*"
 dj-database-url = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 coverage = "*"
