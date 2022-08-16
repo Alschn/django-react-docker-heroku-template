@@ -4,8 +4,6 @@ FROM python:3.10.5-alpine as build-image
 ENV PYTHONUNBUFFERED=1
 ENV PIPENV_VENV_IN_PROJECT=1
 
-WORKDIR /app/backend
-
 COPY Pipfile .
 
 # Install packages only needed in build stage
@@ -23,7 +21,7 @@ FROM python:3.10.5-alpine as runtime
 ENV PYTHONUNBUFFERED=1
 
 # Copy venv from build stage
-COPY --from=build-image /app/backend/.venv /.venv
+COPY --from=build-image /.venv /.venv
 ENV PATH="/.venv/bin:$PATH"
 
 # Install packages that are only needed runtime
