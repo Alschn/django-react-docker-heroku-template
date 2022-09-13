@@ -23,10 +23,23 @@ RUN npm run build
 # Move all static files other than index.html to root/ for whitenoise middleware
 WORKDIR /app/frontend/build
 
-RUN mkdir root && mv *.ico *.json root
+RUN mkdir root  \
+    && mv *.ico *.json root  \
+    && mkdir /app/backend/staticfiles
 
-# Collect static files
-RUN mkdir /app/backend/staticfiles
+# HACK: Work around a compatibility issue between Django Rest Framework and Django 4.1
+#
+#   * Django 4.1 introduces a change to ManifestStaticFilesStorage that replaces CSS source
+#     map references in static files [0].
+#   * Django Rest Framework vendors bootstrap CSS files which reference sourcemaps, but
+#     does not include them in the installed package's static files [1].
+#
+# TODO: Remove this hack when a new version of Django Rest Framework is released containing
+#       the fix [1]
+#
+# [0] https://docs.djangoproject.com/en/4.1/releases/4.1/#django-contrib-staticfiles
+# [1] https://github.com/encode/django-rest-framework/pull/8591
+RUN find "$(python -c 'import rest_framework as rf; print(rf.__path__[0])')" -name '*.min.css' -exec touch '{}.map' \;
 
 WORKDIR /app
 
