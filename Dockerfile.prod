@@ -1,5 +1,5 @@
 # Use image with both python and node installed
-FROM nikolaik/python-nodejs:python3.10-nodejs14
+FROM nikolaik/python-nodejs:python3.10-nodejs16
 
 WORKDIR /app/backend
 
@@ -11,14 +11,14 @@ RUN pip3 install --upgrade pip -r requirements.txt
 WORKDIR /app/frontend
 
 COPY ./frontend/package.json ./frontend/yarn.lock /app/frontend/
-RUN npm install
+RUN yarn install
 
 # Add the rest of the code
 COPY . /app/
 COPY ./backend/scripts/ /app/
 
 # Build static files
-RUN npm run build
+RUN yarn build
 
 # Move all static files other than index.html to root/ for whitenoise middleware
 WORKDIR /app/frontend/build
