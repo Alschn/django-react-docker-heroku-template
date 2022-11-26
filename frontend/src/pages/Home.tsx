@@ -1,6 +1,6 @@
 import {FC, FormEvent, useState} from 'react';
 import reactLogo from '../assets/react.svg';
-import {getUppercaseText} from "../api/example";
+import {getUppercaseText} from "../api/uppercase";
 import './Home.scss';
 
 interface HomeProps {

@@ -83,6 +83,11 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
+
+      - name: Check if build succeeds
+        run: |
+          npm run build
+
       - name: Run tests
         run: |
           npm test -- --coverage
