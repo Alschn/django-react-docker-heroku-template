@@ -41,7 +41,7 @@ STATIC_ROOT = os.path.join(ROOT_DIR, "staticfiles")
 STATIC_URL = "/static/"
 
 # directory where WhiteNoise can find all non-html static assets
-WHITENOISE_ROOT = os.path.join(ROOT_DIR, "frontend", "build", "root")
+WHITENOISE_ROOT = os.path.join(ROOT_DIR, "frontend", "build")
 
 # database url set at env variable in Heroku
 DATABASE_URL = os.environ.get('DATABASE_URL')
