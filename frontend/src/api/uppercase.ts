@@ -6,5 +6,5 @@ interface ResponseBody {
 }
 
 export const getUppercaseText = (text: string): Promise<Response<ResponseBody>> => {
-  return AxiosClient.get(`/api/test?text=${text}`);
+  return AxiosClient.get(`/api/uppercase/?text=${text}`);
 };

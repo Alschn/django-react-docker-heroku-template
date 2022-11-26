@@ -1,0 +1,1 @@
+from .uppercase import UppercaseTextAPIView
