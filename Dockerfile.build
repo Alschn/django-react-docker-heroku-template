@@ -32,7 +32,7 @@ COPY ./frontend /app/frontend
 RUN yarn build
 
 # Move non-static files to newly created dir (/app/frontend/build/root/)
-RUN cd build && mkdir root && shopt -s extglob && mv !(assets) root
+RUN cd build && mkdir root && find . -maxdepth 1 | grep -v assets| xargs -i mv {} root
 
 # Collect static files
 RUN mkdir /app/staticfiles
