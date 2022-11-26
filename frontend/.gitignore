@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 coverage
+
+# vite.config.ts.* is a temporary file created by Vite
+vite.config.ts.*
