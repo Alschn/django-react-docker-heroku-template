@@ -31,8 +31,8 @@ COPY ./frontend /app/frontend
 # Build react static files
 RUN yarn build
 
-# Move non-static files to newly created dir (/app/frontend/build/root/) - not used anymore
-# RUN cd build && mkdir root && mv *.ico *.json root
+# Move non-static files to newly created dir (/app/frontend/build/root/)
+RUN cd build && mkdir root && shopt -s extglob && mv !(assets) root
 
 # Collect static files
 RUN mkdir /app/staticfiles

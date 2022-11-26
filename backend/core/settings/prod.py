@@ -30,7 +30,7 @@ MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 TEMPLATES[0]["DIRS"] = [os.path.join(ROOT_DIR, "frontend", "build")]
 
 # directory where Django can find html, js, css, and other static assets
-STATICFILES_DIRS = [os.path.join(ROOT_DIR, "frontend", "build", "static")]
+STATICFILES_DIRS = [os.path.join(ROOT_DIR, "frontend", "build", "assets")]
 
 # type of static files storage
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
