@@ -1,5 +1,5 @@
 # Use image with both python and node installed
-FROM nikolaik/python-nodejs:python3.10-nodejs14-alpine
+FROM nikolaik/python-nodejs:python3.10-nodejs16-alpine
 
 WORKDIR /app/backend
 
@@ -23,13 +23,13 @@ COPY ./backend/scripts/ /app/
 WORKDIR /app/frontend
 
 COPY ./frontend/package.json ./frontend/yarn.lock /app/frontend/
-RUN npm install
+RUN yarn install
 
 # Add the rest of the code
 COPY ./frontend /app/frontend
 
 # Build react static files
-RUN npm run build
+RUN yarn build
 
 # Move non-static files to newly created dir (/app/frontend/build/root/)
 RUN cd build && mkdir root && mv *.ico *.json root

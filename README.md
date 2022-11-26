@@ -4,11 +4,26 @@
     <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt=""/>
+    <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt=""/>
     <img src="https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Docker-008FCC?style=for-the-badge&logo=docker&logoColor=white" alt=""/>
     <img src="https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white" alt=""/>
 </div>
+
+### Important:
+
+Heroku is removing its free tier on 28th November 2022.
+
+If you want to use this template, be aware that **Heroku is no longer free**. This template is still valid and can be
+deployed anywhere else if you want to do some adjustments.
+
+#### https://help.heroku.com/RSBRUH58/removal-of-heroku-free-product-plans-faq
+
+In the nearest future I am going to create another template using other providers such as
+Railway.app or Render.com, etc.
+
+---
 
 This repository serves as a starting point for developing a
 production-ready application using Django Rest Framework,
@@ -18,7 +33,7 @@ without docker-compose is also possible.
 
 ### Tools, libraries, frameworks:
 
-This setup has been tested with Python 3.10 and Node 14. (previously Python 3.8/3.9, Node 12)
+This setup has been tested with Python 3.10 and Node 16. (previously Python 3.8/3.9, Node 12/14)
 
 ### Backend
 
@@ -48,15 +63,18 @@ Suggested packages:
 - `sass` - enables scss/sass support
 - `axios` - for making HTTP requests
 - `yarn` - package manager
+- `vite` - bundler
+- `jest` - unit testing
 
 Suggested packages:
 
-- UI libraries such as `Chakra-UI`, `Material-UI`, `Reactstrap`, `TailwindCSS` etc. (personally I recommend Chakra-UI)
-- `react-query` - very useful package which handles data fetching logic for you
+- UI libraries such as `Chakra-UI`, `Material-UI`, `Mantine`, `Reactstrap`, `TailwindCSS` etc. (personally I recommend
+  Chakra-UI)
+- `react-query` - highly encouraged, very useful package which handles data fetching logic for you
 - `formik` + `yup` - handling form state and validation
 - `@reduxjs/toolkit` + required packages
   (react-redux, redux etc.) - library which makes Redux much easier to understand and use
-- `cypress` - for e2e testing
+- `playwright` / `cypress` - for e2e testing
 
 # Development setup
 
@@ -123,10 +141,10 @@ yarn install
 Run development server in second terminal
 
 ```shell script
-yarn start
+yarn dev --port 3000
 ```
 
-### Backend tests coverage
+### Backend tests
 
 ```shell script
 cd backend
@@ -142,6 +160,20 @@ Get report from coverage:
 
 ```shell script
 coverage report -m
+```
+
+### Frontend tests
+
+Run unit tests
+
+```shell
+yarn test
+```
+
+Run coverage report
+
+```shell
+yarn test --coverage
 ```
 
 ## With Docker
@@ -196,7 +228,7 @@ e.g
 ```shell script
 docker exec -it backend python manage.py createsuperuser
 docker exec -it backend coverage run manage.py test
-docker exec -it frontend /bin/sh
+docker exec -it frontend bash
 ```
 
 ### 2) Build configuration
@@ -224,10 +256,10 @@ If you want to have a separate db, edit docker-compose-build.yml and set up new 
 # Production Deployment
 
 1) [Create Heroku Account](https://signup.heroku.com/dc)
-2) [Download/Install/Setup Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)  
-   - After install, log into Heroku CLI: `heroku login`
+2) [Download/Install/Setup Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli#download-and-install)
+    - After install, log into Heroku CLI: `heroku login`
 3) Run: `heroku create <your app name>` to create the Heroku application
-4) Set your environment variables for your production environment by running:  
+4) Set your environment variables for your production environment by running:
    ```
    heroku config:set PRODUCTION_HOST=<your app name>.herokuapp.com SECRET_KEY=<your secret key> DJANGO_SETTINGS_MODULE=core.settings.prod
    ```
