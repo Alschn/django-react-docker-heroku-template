@@ -20,14 +20,6 @@ COPY ./backend/scripts/ /app/
 # Build static files
 RUN yarn build
 
-# Move all static files other than index.html to root/ for whitenoise middleware
-WORKDIR /app/frontend/build
-
-RUN mkdir root
-
-# copy everything except assets folder and index.html to root/
-RUN find . -maxdepth 1 | grep -v root | grep -v assets | grep -v index.html | xargs -i mv {} root
-
 RUN mkdir /app/backend/staticfiles
 
 # HACK: Work around a compatibility issue between Django Rest Framework and Django 4.1

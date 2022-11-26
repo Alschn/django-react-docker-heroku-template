@@ -31,14 +31,14 @@ CORS_ALLOW_ALL_ORIGINS = False
 # whitenoise middleware - has to be first in the list
 MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
-# directories with templates or html files
+# extra directories with html files
 TEMPLATES[0]["DIRS"] = [os.path.join(ROOT_DIR, "frontend", "build")]
 
-# directory where Django can find html, js, css, and other static assets
+# directory where Django can find js, css, and other static assets
 STATICFILES_DIRS = [os.path.join(ROOT_DIR, "frontend", "build", "assets")]
 
 # directory where WhiteNoise can find all non-html static assets (.ico, .json, .txt files etc.)
-WHITENOISE_ROOT = os.path.join(ROOT_DIR, "frontend", "build", "root")
+WHITENOISE_ROOT = os.path.join(ROOT_DIR, "frontend", "build")
 
 # directory to which Django will move those static assets and from which it will serve them when the app is running
 STATIC_ROOT = os.path.join(ROOT_DIR, "staticfiles")

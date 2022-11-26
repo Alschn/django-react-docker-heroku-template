@@ -26,7 +26,7 @@ INSTALLED_APPS.extend(["whitenoise.runserver_nostatic"])
 # whitenoise middle - has to be first in the list
 MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
-# directories with templates or html files
+# extra directories with html files
 TEMPLATES[0]["DIRS"] = [os.path.join(ROOT_DIR, "frontend", "build")]
 
 # directory where Django can find html, js, css, and other static assets
