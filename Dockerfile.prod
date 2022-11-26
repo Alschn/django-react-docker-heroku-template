@@ -26,7 +26,7 @@ WORKDIR /app/frontend/build
 RUN mkdir root
 
 # copy everything except assets folder and index.html to root/
-RUN find . -maxdepth 1 | grep -v assets | grep -v index.html | xargs -i mv {} root
+RUN find . -maxdepth 1 | grep -v root | grep -v assets | grep -v index.html | xargs -i mv {} root
 
 RUN mkdir /app/backend/staticfiles
 
