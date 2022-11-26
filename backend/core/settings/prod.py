@@ -7,7 +7,7 @@ import dj_database_url
 from core.settings.base import *
 
 # project directory
-ROOT_DIR = BASE_DIR.parent.parent
+ROOT_DIR = BASE_DIR.parent
 
 # set SECRET_KEY for production
 SECRET_KEY = os.environ.get('SECRET_KEY')

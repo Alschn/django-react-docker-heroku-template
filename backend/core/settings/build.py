@@ -23,7 +23,7 @@ DATABASES = {
 }
 
 # project directory
-ROOT_DIR = BASE_DIR.parent.parent
+ROOT_DIR = BASE_DIR.parent
 
 # cors headers configuration
 CORS_ALLOW_ALL_ORIGINS = False
